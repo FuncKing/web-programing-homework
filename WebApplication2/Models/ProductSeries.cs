@@ -11,21 +11,29 @@ namespace WebApplication2.Models
         [Key]
         public int id { get; set; }
 
+        [Required]
         public string name { get; set; }
 
+        [Required]
         public int quantity { get; set; }
 
+        [Required]
         [DataType(DataType.Currency)]
         public float? price { get; set; }
 
+        [Required]
         public Product product { get; set; }
 
+        [Required]
         public DateTime buyTime { get; set; }
 
+        [Required]
         public Seller seller { get; set; }
 
+        [Required]
         public List<Sale> sales { get; set; }
 
+        [Required]
         [DataType(DataType.Currency)]
         public float? cost { get; set; }
 

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,8 +29,19 @@ namespace WebApplication2
             services.AddControllersWithViews();
             services.AddEntityFrameworkNpgsql().AddDbContext<ShopContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
-            ); 
-                
+            );
+            services.AddIdentity<User, IdentityRole>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<ShopContext>();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 5;
+            });
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +62,7 @@ namespace WebApplication2
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -60,6 +73,7 @@ namespace WebApplication2
                 endpoints.MapControllerRoute(
                     name: "form",
                     pattern: "{controller=Form}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

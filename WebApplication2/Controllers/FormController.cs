@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace WebApplication2.Controllers
     {
         static List<StudentModel> students = new List<StudentModel>();
         // GET: FormController
+
+        [Authorize(Roles ="Admin")]
         public ActionResult Index()
         {
 
