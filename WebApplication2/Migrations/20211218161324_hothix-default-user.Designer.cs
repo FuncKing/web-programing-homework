@@ -10,7 +10,7 @@ using WebApplication2.Models;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20211218160934_hothix-default-user")]
+    [Migration("20211218161324_hothix-default-user")]
     partial class hothixdefaultuser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -358,16 +358,16 @@ namespace WebApplication2.Migrations
                         {
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7e3e0d82-9699-49d5-b9c9-5a63a9e8020b",
-                            Email = "g191210018@sakarya.edur.tr",
+                            ConcurrencyStamp = "2be08b40-df64-45c5-8c57-9a75177dd288",
+                            Email = "g191210018@sakarya.edu.tr",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "G191210018@SAKARYA.EDU.TR",
                             NormalizedUserName = "G191210018@SAKARYA.EDU.TR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFVi4kFLydD4hNjrJJivUWzyIN6u60OJbDJY61A0KYgzdbJAoSg4TnQvFbey5zMmWw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENDassJo/1Jrcz3MQL8qlTb88C7LJhRlBTY+xduqqLYJ71VwpH4U1cn7clNglcEwUA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "52805fe7-5bbe-46b5-b6c4-2ba7f9718f99",
+                            SecurityStamp = "9d93052d-3422-4ac2-a27f-c44b7091dce3",
                             TwoFactorEnabled = false,
                             UserName = "g191210018@sakarya.edu.tr",
                             id = 0
@@ -376,16 +376,16 @@ namespace WebApplication2.Migrations
                         {
                             Id = "b74ddd14-6340-4840-95c2-db12554843e6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d1a5df0b-8f6f-4358-9d0e-ae99fd8bc89b",
-                            Email = "g191210057@sakarya.edur.tr",
+                            ConcurrencyStamp = "03a6ce24-d347-42d7-b749-d4be07965b00",
+                            Email = "g191210057@sakarya.edu.tr",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "G191210057@SAKARYA.EDU.TR",
                             NormalizedUserName = "G191210057@SAKARYA.EDU.TR",
-                            PasswordHash = "AQAAAAEAACcQAAAAECbhdGsCspYIeyqbuqSc1ZAjLZhOV6WjvU3qEGyYuux+2oXBSJZSgCRv8PHkAgypxQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMN+9GpdH1o4CZNz4DsLE1deK2843EvAURd4rCMjpS1Wzy/tEIDYjraJexZ03dzY9A==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "277ebab2-2984-4569-8c8d-381fb7b186e0",
+                            SecurityStamp = "5e59a408-7747-4af9-ae05-ab4132bd3bf4",
                             TwoFactorEnabled = false,
                             UserName = "g191210057@sakarya.edu.tr",
                             id = 0

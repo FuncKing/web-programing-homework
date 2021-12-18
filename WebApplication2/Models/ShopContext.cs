@@ -53,7 +53,7 @@ namespace WebApplication2.Models
                 Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                 UserName = "g191210018@sakarya.edu.tr",
                 NormalizedUserName = "G191210018@SAKARYA.EDU.TR",
-                Email = "g191210018@sakarya.edur.tr",
+                Email = "g191210018@sakarya.edu.tr",
                 NormalizedEmail = "G191210018@SAKARYA.EDU.TR",
                 LockoutEnabled = false,
                 PhoneNumber = "1234567890"
@@ -64,7 +64,7 @@ namespace WebApplication2.Models
                 Id = "b74ddd14-6340-4840-95c2-db12554843e6",
                 UserName = "g191210057@sakarya.edu.tr",
                 NormalizedUserName = "G191210057@SAKARYA.EDU.TR",
-                Email = "g191210057@sakarya.edur.tr",
+                Email = "g191210057@sakarya.edu.tr",
                 NormalizedEmail = "G191210057@SAKARYA.EDU.TR",
                 LockoutEnabled = false,
                 PhoneNumber = "1234567890"
