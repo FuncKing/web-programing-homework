@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace WebApplication2.Models
 {
-    public class User : IdentityUser
+    public class User: IdentityUser
     {
-        [Key]
         public int id { get; set; }
-
+        public List<Sale> sales { get; set; }
     }
 }

@@ -12,7 +12,6 @@ namespace WebApplication2.Models
     {
         public ShopContext(DbContextOptions<ShopContext> options) : base(options) {}
 
-        public DbSet<User> users { get; set; }
         public DbSet<Product> products { get; set; }
         public DbSet<ProductSeries> productSeries { get; set; }
         public DbSet<Seller> sellers { get; set; }
@@ -33,7 +32,12 @@ namespace WebApplication2.Models
             modelBuilder.Entity<Sale>()
                 .HasOne(p => p.productSeries)
                 .WithMany(b => b.sales)
-                .HasForeignKey("SaleId");
+                .HasForeignKey("ProductSeriesId");
+
+            modelBuilder.Entity<Sale>()
+                .HasOne(p => p.user)
+                .WithMany(b => b.sales)
+                .HasForeignKey("UserId");
 
             base.OnModelCreating(modelBuilder);
 
@@ -44,33 +48,52 @@ namespace WebApplication2.Models
 
         private void SeedUsers(ModelBuilder builder)
         {
-            User user = new User()
+            User mertcany = new User()
             {
                 Id = "b74ddd14-6340-4840-95c2-db12554843e5",
-                UserName = "Admin",
-                Email = "g191210018@sakarya.edu.tr",
+                UserName = "g191210018@sakarya.edur.tr",
+                NormalizedUserName = "G191210018@SAKARYA.EDU.TR",
+                Email = "g191210018@sakarya.edur.tr",
+                NormalizedEmail = "G191210018@SAKARYA.EDU.TR",
+                LockoutEnabled = false,
+                PhoneNumber = "1234567890"
+            };
+
+            User alihan = new User()
+            {
+                Id = "b74ddd14-6340-4840-95c2-db12554843e6",
+                UserName = "g191210057@sakarya.edur.tr",
+                NormalizedUserName = "G191210057@SAKARYA.EDU.TR",
+                Email = "g191210057@sakarya.edur.tr",
+                NormalizedEmail = "G191210057@SAKARYA.EDU.TR",
                 LockoutEnabled = false,
                 PhoneNumber = "1234567890"
             };
 
             PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
-            passwordHasher.HashPassword(user, "123");
+            var mchashedPassword=passwordHasher.HashPassword(mertcany, "123");
+            var alhnhashedPassword = passwordHasher.HashPassword(alihan, "123");
 
-            builder.Entity<User>().HasData(user);
+            mertcany.PasswordHash = mchashedPassword;
+            alihan.PasswordHash = alhnhashedPassword;
+
+            builder.Entity<User>().HasData(mertcany);
+            builder.Entity<User>().HasData(alihan);
         }
 
         private void SeedRoles(ModelBuilder builder)
         {
             builder.Entity<IdentityRole>().HasData(
-                new IdentityRole() { Id = "fab4fac1-c546-41de-aebc-a14da6895711", Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "Admin" },
-                new IdentityRole() { Id = "c7b013f0-5201-4317-abd8-c211f91b7330", Name = "HR", ConcurrencyStamp = "2", NormalizedName = "Human Resource" }
+                new IdentityRole() { Id = "fab4fac1-c546-41de-aebc-a14da6895711", Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "ADMIN" },
+                new IdentityRole() { Id = "c7b013f0-5201-4317-abd8-c211f91b7330", Name = "User", ConcurrencyStamp = "2", NormalizedName = "USER" }
                 );
         }
 
         private void SeedUserRoles(ModelBuilder builder)
         {
             builder.Entity<IdentityUserRole<string>>().HasData(
-                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" }
+                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", UserId = "b74ddd14-6340-4840-95c2-db12554843e6" }
                 );
         }
     }

@@ -17,5 +17,7 @@ namespace WebApplication2.Models
         public int price { get; set; }
 
         public ProductSeries productSeries { get; set; }
+
+        public User user { get; set; }
     }
 }

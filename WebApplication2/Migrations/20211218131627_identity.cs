@@ -16,6 +16,10 @@ namespace WebApplication2.Migrations
                 name: "FK_productSeries_sellers_SellerId",
                 table: "productSeries");
 
+            migrationBuilder.DropForeignKey(
+                name: "FK_sales_productSeries_SaleId",
+                table: "sales");
+
             migrationBuilder.DropPrimaryKey(
                 name: "PK_users",
                 table: "users");
@@ -23,6 +27,16 @@ namespace WebApplication2.Migrations
             migrationBuilder.RenameTable(
                 name: "users",
                 newName: "AspNetUsers");
+
+            migrationBuilder.RenameColumn(
+                name: "SaleId",
+                table: "sales",
+                newName: "ProductSeriesId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_sales_SaleId",
+                table: "sales",
+                newName: "IX_sales_ProductSeriesId");
 
             migrationBuilder.RenameColumn(
                 name: "role",
@@ -38,6 +52,12 @@ namespace WebApplication2.Migrations
                 name: "name",
                 table: "AspNetUsers",
                 newName: "PhoneNumber");
+
+            migrationBuilder.AddColumn<string>(
+                name: "UserId",
+                table: "sales",
+                type: "text",
+                nullable: true);
 
             migrationBuilder.AlterColumn<float>(
                 name: "price",
@@ -299,19 +319,32 @@ namespace WebApplication2.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "fab4fac1-c546-41de-aebc-a14da6895711", "1", "Admin", "Admin" },
-                    { "c7b013f0-5201-4317-abd8-c211f91b7330", "2", "HR", "Human Resource" }
+                    { "fab4fac1-c546-41de-aebc-a14da6895711", "1", "Admin", "ADMIN" },
+                    { "c7b013f0-5201-4317-abd8-c211f91b7330", "2", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "id" },
-                values: new object[] { "b74ddd14-6340-4840-95c2-db12554843e5", 0, "5620014d-8559-4dc6-8d46-a22b309270a1", "g191210018@sakarya.edu.tr", false, false, null, null, null, null, "1234567890", false, "cc1674ac-db5c-4900-821e-36de0153c6e4", false, "Admin", 0 });
+                values: new object[,]
+                {
+                    { "b74ddd14-6340-4840-95c2-db12554843e5", 0, "388d7f7b-de87-4d6e-bbb6-dea0a805e266", "g191210018@sakarya.edur.tr", false, false, null, "G191210018@SAKARYA.EDU.TR", "G191210018@SAKARYA.EDU.TR", "AQAAAAEAACcQAAAAECcWhz5LKooXVU/2L1yiClEu6feE3JDpJyJcbdeWYyVmngTl5gPScY3Q70Ooj584hQ==", "1234567890", false, "902c9fc9-fd88-497f-bfea-431999843e1b", false, "g191210018@sakarya.edur.tr", 0 },
+                    { "b74ddd14-6340-4840-95c2-db12554843e6", 0, "444c4925-6780-440c-bee1-11f5d4e7317b", "g191210057@sakarya.edur.tr", false, false, null, "G191210057@SAKARYA.EDU.TR", "G191210057@SAKARYA.EDU.TR", "AQAAAAEAACcQAAAAEAhnjA+fjq9U7uDfBTNUTR2BEvaQLlxce13XLY3strgK0qnA0NmW9K3f6eRdjxdLjQ==", "1234567890", false, "ff216415-8b8f-489d-bdb0-c1a60f382a9e", false, "g191210057@sakarya.edur.tr", 0 }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "fab4fac1-c546-41de-aebc-a14da6895711", "b74ddd14-6340-4840-95c2-db12554843e5" });
+                values: new object[,]
+                {
+                    { "fab4fac1-c546-41de-aebc-a14da6895711", "b74ddd14-6340-4840-95c2-db12554843e5" },
+                    { "fab4fac1-c546-41de-aebc-a14da6895711", "b74ddd14-6340-4840-95c2-db12554843e6" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_sales_UserId",
+                table: "sales",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -365,6 +398,22 @@ namespace WebApplication2.Migrations
                 principalTable: "sellers",
                 principalColumn: "id",
                 onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_sales_AspNetUsers_UserId",
+                table: "sales",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_sales_productSeries_ProductSeriesId",
+                table: "sales",
+                column: "ProductSeriesId",
+                principalTable: "productSeries",
+                principalColumn: "id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -376,6 +425,14 @@ namespace WebApplication2.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_productSeries_sellers_SellerId",
                 table: "productSeries");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_sales_AspNetUsers_UserId",
+                table: "sales");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_sales_productSeries_ProductSeriesId",
+                table: "sales");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -395,6 +452,10 @@ namespace WebApplication2.Migrations
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
+            migrationBuilder.DropIndex(
+                name: "IX_sales_UserId",
+                table: "sales");
+
             migrationBuilder.DropPrimaryKey(
                 name: "PK_AspNetUsers",
                 table: "AspNetUsers");
@@ -412,6 +473,16 @@ namespace WebApplication2.Migrations
                 keyColumn: "Id",
                 keyColumnType: "text",
                 keyValue: "b74ddd14-6340-4840-95c2-db12554843e5");
+
+            migrationBuilder.DeleteData(
+                table: "AspNetUsers",
+                keyColumn: "Id",
+                keyColumnType: "text",
+                keyValue: "b74ddd14-6340-4840-95c2-db12554843e6");
+
+            migrationBuilder.DropColumn(
+                name: "UserId",
+                table: "sales");
 
             migrationBuilder.DropColumn(
                 name: "Id",
@@ -464,6 +535,16 @@ namespace WebApplication2.Migrations
             migrationBuilder.RenameTable(
                 name: "AspNetUsers",
                 newName: "users");
+
+            migrationBuilder.RenameColumn(
+                name: "ProductSeriesId",
+                table: "sales",
+                newName: "SaleId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_sales_ProductSeriesId",
+                table: "sales",
+                newName: "IX_sales_SaleId");
 
             migrationBuilder.RenameColumn(
                 name: "SecurityStamp",
@@ -539,6 +620,14 @@ namespace WebApplication2.Migrations
                 table: "productSeries",
                 column: "SellerId",
                 principalTable: "sellers",
+                principalColumn: "id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_sales_productSeries_SaleId",
+                table: "sales",
+                column: "SaleId",
+                principalTable: "productSeries",
                 principalColumn: "id",
                 onDelete: ReferentialAction.Restrict);
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace WebApplication2.Controllers
             return View();
         }
 
+        [Authorize(Roles = "User")]
         public IActionResult Privacy()
         {
             return View();

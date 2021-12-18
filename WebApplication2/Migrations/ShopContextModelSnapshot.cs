@@ -50,14 +50,14 @@ namespace WebApplication2.Migrations
                             Id = "fab4fac1-c546-41de-aebc-a14da6895711",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
-                            NormalizedName = "Admin"
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "c7b013f0-5201-4317-abd8-c211f91b7330",
                             ConcurrencyStamp = "2",
-                            Name = "HR",
-                            NormalizedName = "Human Resource"
+                            Name = "User",
+                            NormalizedName = "USER"
                         });
                 });
 
@@ -150,6 +150,11 @@ namespace WebApplication2.Migrations
                         {
                             UserId = "b74ddd14-6340-4840-95c2-db12554843e5",
                             RoleId = "fab4fac1-c546-41de-aebc-a14da6895711"
+                        },
+                        new
+                        {
+                            UserId = "b74ddd14-6340-4840-95c2-db12554843e6",
+                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895711"
                         });
                 });
 
@@ -235,8 +240,11 @@ namespace WebApplication2.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("SaleId")
+                    b.Property<int?>("ProductSeriesId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.Property<int>("price")
                         .HasColumnType("integer");
@@ -246,7 +254,9 @@ namespace WebApplication2.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("SaleId");
+                    b.HasIndex("ProductSeriesId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("sales");
                 });
@@ -340,15 +350,36 @@ namespace WebApplication2.Migrations
                         {
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5620014d-8559-4dc6-8d46-a22b309270a1",
-                            Email = "g191210018@sakarya.edu.tr",
+                            ConcurrencyStamp = "388d7f7b-de87-4d6e-bbb6-dea0a805e266",
+                            Email = "g191210018@sakarya.edur.tr",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            NormalizedEmail = "G191210018@SAKARYA.EDU.TR",
+                            NormalizedUserName = "G191210018@SAKARYA.EDU.TR",
+                            PasswordHash = "AQAAAAEAACcQAAAAECcWhz5LKooXVU/2L1yiClEu6feE3JDpJyJcbdeWYyVmngTl5gPScY3Q70Ooj584hQ==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cc1674ac-db5c-4900-821e-36de0153c6e4",
+                            SecurityStamp = "902c9fc9-fd88-497f-bfea-431999843e1b",
                             TwoFactorEnabled = false,
-                            UserName = "Admin",
+                            UserName = "g191210018@sakarya.edur.tr",
+                            id = 0
+                        },
+                        new
+                        {
+                            Id = "b74ddd14-6340-4840-95c2-db12554843e6",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "444c4925-6780-440c-bee1-11f5d4e7317b",
+                            Email = "g191210057@sakarya.edur.tr",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "G191210057@SAKARYA.EDU.TR",
+                            NormalizedUserName = "G191210057@SAKARYA.EDU.TR",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAhnjA+fjq9U7uDfBTNUTR2BEvaQLlxce13XLY3strgK0qnA0NmW9K3f6eRdjxdLjQ==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ff216415-8b8f-489d-bdb0-c1a60f382a9e",
+                            TwoFactorEnabled = false,
+                            UserName = "g191210057@sakarya.edur.tr",
                             id = 0
                         });
                 });
@@ -427,9 +458,15 @@ namespace WebApplication2.Migrations
                 {
                     b.HasOne("WebApplication2.Models.ProductSeries", "productSeries")
                         .WithMany("sales")
-                        .HasForeignKey("SaleId");
+                        .HasForeignKey("ProductSeriesId");
+
+                    b.HasOne("WebApplication2.Models.User", "user")
+                        .WithMany("sales")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("productSeries");
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("WebApplication2.Models.Product", b =>
@@ -445,6 +482,11 @@ namespace WebApplication2.Migrations
             modelBuilder.Entity("WebApplication2.Models.Seller", b =>
                 {
                     b.Navigation("productSeries");
+                });
+
+            modelBuilder.Entity("WebApplication2.Models.User", b =>
+                {
+                    b.Navigation("sales");
                 });
 #pragma warning restore 612, 618
         }
