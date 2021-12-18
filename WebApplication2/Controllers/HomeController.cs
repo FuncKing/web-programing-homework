@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -43,10 +44,19 @@ namespace WebApplication2.Controllers
             return View();
         }
 
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var context = HttpContext.Features.Get<IExceptionHandlerFeature>();
+            var exception = context.Error; // Your exception
+            var code = 500; // Internal Server Error by default
+
+
+            Response.StatusCode = code; // You can use HttpStatusCode enum instead
+
+            return View(new ErrorMVC(exception)); // Your error model
         }
     }
 }

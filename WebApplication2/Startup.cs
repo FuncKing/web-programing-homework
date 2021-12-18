@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -59,6 +61,9 @@ namespace WebApplication2
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseExceptionHandler("/Home/Error");
+
 
             app.UseRouting();
 

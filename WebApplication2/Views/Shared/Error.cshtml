@@ -1,4 +1,4 @@
-﻿@model ErrorViewModel
+﻿@model ErrorMVC
 @{
     ViewData["Title"] = "Error";
 }
@@ -6,12 +6,16 @@
 <h1 class="text-danger">Error.</h1>
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
+<p>
+    <strong>Error Type: </strong> <code>@Model.Type</code>
+</p>
+<p>
+    <strong>General Message: </strong> <code>@Model.GeneralMessage</code>
+</p>
+<p>
+    <strong>Inner Mesage: </strong> <code>@Model.InnerMessage</code>
+</p>
+
 
 <h3>Development Mode</h3>
 <p>

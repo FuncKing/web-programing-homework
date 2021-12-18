@@ -11,9 +11,14 @@ namespace WebApplication2.Models
         [Key]
         public string barcode { get; set; }
 
+        [Required]
         public string weight { get; set; }
 
+        [Required]
         public string name {get; set;}
+
+        [Required]
+        public string imagePath { get; set; }
 
         public List<ProductSeries> productSeries { get; set; }
 
