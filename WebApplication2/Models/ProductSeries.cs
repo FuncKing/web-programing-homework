@@ -21,16 +21,15 @@ namespace WebApplication2.Models
         [DataType(DataType.Currency)]
         public float? price { get; set; }
 
-        [Required]
+        
         public Product product { get; set; }
 
         [Required]
         public DateTime buyTime { get; set; }
 
-        [Required]
+        
         public Seller seller { get; set; }
 
-        [Required]
         public List<Sale> sales { get; set; }
 
         [Required]

@@ -10,92 +10,91 @@ using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
-    public class ProductsController : Controller
+    public class SellersController : Controller
     {
         private readonly ShopContext _context;
 
-        
-        public ProductsController(ShopContext context)
+        public SellersController(ShopContext context)
         {
             _context = context;
         }
 
-        // GET: Products
+        // GET: Sellers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.products.ToListAsync());
+            return View(await _context.sellers.ToListAsync());
         }
 
-        // GET: Products/Details/5
+        // GET: Sellers/Details/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.products
-                .FirstOrDefaultAsync(m => m.barcode == id);
-            if (product == null)
+            var seller = await _context.sellers
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (seller == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(seller);
         }
 
-        // GET: Products/Create
+        // GET: Sellers/Create
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Sellers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("barcode,weight,name,imagePath")] Product product)
+        public async Task<IActionResult> Create([Bind("id,name,address")] Seller seller)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                _context.Add(seller);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(seller);
         }
 
-        // GET: Products/Edit/5
+        // GET: Sellers/Edit/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.products.FindAsync(id);
-            if (product == null)
+            var seller = await _context.sellers.FindAsync(id);
+            if (seller == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return View(seller);
         }
 
-        // POST: Products/Edit/5
+        // POST: Sellers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(string id, [Bind("barcode,weight,name,imagePath,description")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("id,name,address")] Seller seller)
         {
-            if (id != product.barcode)
+            if (id != seller.id)
             {
                 return NotFound();
             }
@@ -104,12 +103,12 @@ namespace WebApplication2.Controllers
             {
                 try
                 {
-                    _context.Update(product);
+                    _context.Update(seller);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.barcode))
+                    if (!SellerExists(seller.id))
                     {
                         return NotFound();
                     }
@@ -120,43 +119,43 @@ namespace WebApplication2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(seller);
         }
 
-        // GET: Products/Delete/5
+        // GET: Sellers/Delete/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.products
-                .FirstOrDefaultAsync(m => m.barcode == id);
-            if (product == null)
+            var seller = await _context.sellers
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (seller == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(seller);
         }
 
-        // POST: Products/Delete/5
+        // POST: Sellers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.products.FindAsync(id);
-            _context.products.Remove(product);
+            var seller = await _context.sellers.FindAsync(id);
+            _context.sellers.Remove(seller);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(string id)
+        private bool SellerExists(int id)
         {
-            return _context.products.Any(e => e.barcode == id);
+            return _context.sellers.Any(e => e.id == id);
         }
     }
 }

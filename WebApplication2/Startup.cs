@@ -62,7 +62,7 @@ namespace WebApplication2
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseExceptionHandler("/Home/Error");
+            //app.UseExceptionHandler("/Home/Error");
 
 
             app.UseRouting();
