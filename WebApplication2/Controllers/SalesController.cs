@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,92 +9,85 @@ using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
-    public class ProductsController : Controller
+    public class SalesController : Controller
     {
         private readonly ShopContext _context;
 
-        
-        public ProductsController(ShopContext context)
+        public SalesController(ShopContext context)
         {
             _context = context;
         }
 
-        // GET: Products
-        [Authorize(Roles = "Admin")]
+        // GET: Sales
         public async Task<IActionResult> Index()
         {
-            return View(await _context.products.ToListAsync());
+            return View(await _context.sales.ToListAsync());
         }
 
-        // GET: Products/Details/5
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Details(string id)
+        // GET: Sales/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.products
-                .FirstOrDefaultAsync(m => m.barcode == id);
-            if (product == null)
+            var sale = await _context.sales
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (sale == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(sale);
         }
 
-        // GET: Products/Create
-        [Authorize(Roles = "Admin")]
+        // GET: Sales/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Sales/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("barcode,weight,name,imagePath")] Product product)
+        public async Task<IActionResult> Create([Bind("id,quantity")] Sale sale)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                _context.Add(sale);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(sale);
         }
 
-        // GET: Products/Edit/5
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(string id)
+        // GET: Sales/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.products.FindAsync(id);
-            if (product == null)
+            var sale = await _context.sales.FindAsync(id);
+            if (sale == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return View(sale);
         }
 
-        // POST: Products/Edit/5
+        // POST: Sales/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(string id, [Bind("barcode,weight,name,imagePath,description")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("id,quntity,price")] Sale sale)
         {
-            if (id != product.barcode)
+            if (id != sale.id)
             {
                 return NotFound();
             }
@@ -104,12 +96,12 @@ namespace WebApplication2.Controllers
             {
                 try
                 {
-                    _context.Update(product);
+                    _context.Update(sale);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.barcode))
+                    if (!SaleExists(sale.id))
                     {
                         return NotFound();
                     }
@@ -120,43 +112,41 @@ namespace WebApplication2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(sale);
         }
 
-        // GET: Products/Delete/5
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(string id)
+        // GET: Sales/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.products
-                .FirstOrDefaultAsync(m => m.barcode == id);
-            if (product == null)
+            var sale = await _context.sales
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (sale == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(sale);
         }
 
-        // POST: Products/Delete/5
+        // POST: Sales/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.products.FindAsync(id);
-            _context.products.Remove(product);
+            var sale = await _context.sales.FindAsync(id);
+            _context.sales.Remove(sale);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(string id)
+        private bool SaleExists(int id)
         {
-            return _context.products.Any(e => e.barcode == id);
+            return _context.sales.Any(e => e.id == id);
         }
     }
 }

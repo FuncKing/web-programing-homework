@@ -11,10 +11,8 @@ namespace WebApplication2.Models
         [Key]
         public int id { get; set; }
 
-        public int quntity { get; set; }
-
-        [DataType(DataType.Currency)]
-        public int price { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Only positive number allowed")]
+        public int quantity { get; set; }
 
         public ProductSeries productSeries { get; set; }
 

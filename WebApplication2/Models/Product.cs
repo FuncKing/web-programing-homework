@@ -14,6 +14,8 @@ namespace WebApplication2.Models
         [Required]
         public string weight { get; set; }
 
+        public string description { get; set; }
+
         [Required]
         public string name {get; set;}
 
