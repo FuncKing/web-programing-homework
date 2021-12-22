@@ -4,16 +4,31 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Sale History</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
+                Series @Html.DisplayNameFor(model => model.productSeries.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productSeries.product.name)
+            </th>
+            <th class="font-weight-bold text-center mb-1">
+                @Html.DisplayNameFor(model => model.productSeries.price)
+            </th>
+            <th class="font-weight-bold text-center mb-1">
+                @Html.DisplayNameFor(model => model.productSeries.cost)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.quantity)
+            </th>
+            <th class="font-weight-bold text-center mb-1">
+                @Html.DisplayNameFor(model => model.productSeries.seller.name)
+            </th>
+            <th class="font-weight-bold text-center mb-1">
+                @Html.DisplayNameFor(model => model.dateTime.DateTime)
             </th>
             <th></th>
         </tr>
@@ -22,7 +37,25 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.productSeries.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.productSeries.product.name)
+            </td>
+            <td class="font-weight-bold text-center mb-1">
+                @Html.DisplayFor(modelItem => item.productSeries.price)
+            </td>
+            <td class="font-weight-bold text-center mb-1">
+                @Html.DisplayFor(modelItem => item.productSeries.cost)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.quantity)
+            </td>
+            <td class="font-weight-bold text-center mb-1">
+                @Html.DisplayFor(modelItem => item.productSeries.seller.name)
+            </td>
+            <td class="font-weight-bold text-center mb-1">
+                @Html.DisplayFor(modelItem => item.dateTime.DateTime)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
