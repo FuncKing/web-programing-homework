@@ -24,8 +24,35 @@ namespace WebApplication2.Controllers
 
         // GET: Sales
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+            [FromQuery(Name = "productSeriesId")] int? productSeriesId,
+            [FromQuery(Name = "barcode")] string? barcode
+        )
         {
+            if (barcode != null)
+            {
+                return View(await _context.sales
+                    .Where(s => s.productSeries.product.barcode == barcode)
+                    .Include(x => x.productSeries)
+                        .ThenInclude(x => x.product)
+                    .Include(x => x.productSeries)
+                        .ThenInclude(x => x.seller)
+                    .OrderByDescending(x => x.dateTime)
+                    .ToListAsync());
+            }
+
+            if (productSeriesId != null)
+            {
+                return View(await _context.sales
+                .Where(s => s.productSeries.id == productSeriesId)
+                .Include(x => x.productSeries)
+                .ThenInclude(x => x.product)
+                .Include(x => x.productSeries)
+                    .ThenInclude(x => x.seller)
+                .OrderByDescending(x => x.dateTime)
+                .ToListAsync());
+            }
+
             return View(await _context.sales
                 .Include(x => x.productSeries)
                     .ThenInclude(x => x.product)
