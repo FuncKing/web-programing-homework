@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,16 +14,75 @@ namespace WebApplication2.Controllers
     public class SalesController : Controller
     {
         private readonly ShopContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public SalesController(ShopContext context)
+        public SalesController(ShopContext context, UserManager<User> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
         // GET: Sales
-        public async Task<IActionResult> Index()
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Index(
+            [FromQuery(Name = "productSeriesId")] int? productSeriesId,
+            [FromQuery(Name = "barcode")] string? barcode
+        )
         {
-            return View(await _context.sales.ToListAsync());
+            if (barcode != null)
+            {
+                return View(await _context.sales
+                    .Where(s => s.productSeries.product.barcode == barcode)
+                    .Include(x => x.productSeries)
+                        .ThenInclude(x => x.product)
+                    .Include(x => x.productSeries)
+                        .ThenInclude(x => x.seller)
+                    .OrderByDescending(x => x.dateTime)
+                    .ToListAsync());
+            }
+
+            if (productSeriesId != null)
+            {
+                return View(await _context.sales
+                .Where(s => s.productSeries.id == productSeriesId)
+                .Include(x => x.productSeries)
+                .ThenInclude(x => x.product)
+                .Include(x => x.productSeries)
+                    .ThenInclude(x => x.seller)
+                .OrderByDescending(x => x.dateTime)
+                .ToListAsync());
+            }
+
+            return View(await _context.sales
+                .Include(x => x.productSeries)
+                    .ThenInclude(x => x.product)
+                .Include(x => x.productSeries)
+                    .ThenInclude(x => x.seller)
+                .OrderByDescending(x => x.dateTime)
+                .ToListAsync());
+        }
+
+       
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> UserHistory()
+        {
+            User user = await _userManager.GetUserAsync(HttpContext.User);
+                            
+                
+            var sale = await _context.sales.Where(s => s.user == user)
+                .Include(x => x.productSeries)
+                    .ThenInclude(x =>x.product)
+                .Include(x => x.productSeries)
+                    .ThenInclude(x => x.seller)
+                .OrderByDescending(x=>x.dateTime)
+                .ToListAsync();
+
+            if (sale == null)
+            {
+                return NotFound();
+            }
+
+            return View(sale);
         }
 
         // GET: Sales/Details/5

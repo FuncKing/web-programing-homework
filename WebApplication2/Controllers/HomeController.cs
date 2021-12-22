@@ -70,6 +70,7 @@ namespace WebApplication2.Controllers
 
                 sale.productSeries = await _context.productSeries.FindAsync(ProductId);
                 sale.user = await _userManager.GetUserAsync(HttpContext.User);
+                sale.dateTime = DateTime.Now;
                 
                 _context.Add(sale);
                 await _context.SaveChangesAsync();
