@@ -9,24 +9,27 @@
     <thead>
         <tr>
             <th>
-                Series @Html.DisplayNameFor(model => model.productSeries.name)
+                Series Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.productSeries.product.name)
+                Product Name
             </th>
-            <th class="font-weight-bold text-center mb-1">
-                @Html.DisplayNameFor(model => model.productSeries.price)
+            <th >
+                Total Price
             </th>
-            <th class="font-weight-bold text-center mb-1">
-                @Html.DisplayNameFor(model => model.productSeries.cost)
+            <th >
+                Total Cost
+            </th>
+            <th >
+                Total Profit
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.quantity)
+                Quantity
             </th>
-            <th class="font-weight-bold text-center mb-1">
-                @Html.DisplayNameFor(model => model.productSeries.seller.name)
+            <th >
+                Seller Name
             </th>
-            <th class="font-weight-bold text-center mb-1">
+            <th >
                 @Html.DisplayNameFor(model => model.dateTime.DateTime)
             </th>
             <th></th>
@@ -36,24 +39,27 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.productSeries.name)
+                <a role="button" class=" " asp-controller="ProductSeries" asp-action="Details" asp-route-id="@item.productSeries.id">@Html.DisplayFor(modelItem => item.productSeries.name)</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.productSeries.product.name)
+                <a role="button" class=" " asp-controller="Products" asp-action="Details" asp-route-id="@item.productSeries.product.barcode">@Html.DisplayFor(modelItem => item.productSeries.product.name)</a>
+</td>
+            <td class="font-weight-bold text-center mb-1 text-info">
+                @((item.productSeries.price*item.quantity).ToString())
             </td>
-            <td class="font-weight-bold text-center mb-1">
-                @Html.DisplayFor(modelItem => item.productSeries.price)
+            <td class="font-weight-bold text-center mb-1 text-danger">
+                @((item.productSeries.cost*item.quantity).ToString())
             </td>
-            <td class="font-weight-bold text-center mb-1">
-                @Html.DisplayFor(modelItem => item.productSeries.cost)
+            <td class="font-weight-bold text-center mb-1 text-success">
+                @(((item.productSeries.price - item.productSeries.cost)*item.quantity).ToString())
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.quantity)
             </td>
-            <td class="font-weight-bold text-center mb-1">
+            <td >
                 @Html.DisplayFor(modelItem => item.productSeries.seller.name)
             </td>
-            <td class="font-weight-bold text-center mb-1">
+            <td >
                 @Html.DisplayFor(modelItem => item.dateTime.DateTime)
             </td>
             <td>
