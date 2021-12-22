@@ -5,7 +5,6 @@
 }
 
 <h1>Product Series</h1>
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -43,10 +42,12 @@
                 @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.seller.name)
+                @Html.DisplayFor(modelItem => item.product.name)
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.product.barcode">- Details</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.product.name)
+                @Html.DisplayFor(modelItem => item.seller.name)
+                <a asp-controller="Sellers" asp-action="Details" asp-route-id="@item.seller.id">- Details</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.quantity)
@@ -61,9 +62,9 @@
                 @Html.DisplayFor(modelItem => item.buyTime)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> 
                 <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                <a asp-controller="Sales" asp-action="Index" asp-route-productSeriesId="@item.id"> Sales </a>
             </td>
         </tr>
 }

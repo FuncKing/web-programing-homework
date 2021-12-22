@@ -17,5 +17,7 @@ namespace WebApplication2.Models
         public ProductSeries productSeries { get; set; }
 
         public User user { get; set; }
+
+        public DateTimeOffset dateTime { get; set; }
     }
 }
