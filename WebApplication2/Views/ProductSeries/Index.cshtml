@@ -28,10 +28,10 @@
                 @Html.DisplayNameFor(model => model.price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.buyTime)
+                @Html.DisplayNameFor(model => model.cost)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.cost)
+                @Html.DisplayNameFor(model => model.buyTime)
             </th>
             <th></th>
         </tr>
@@ -54,16 +54,16 @@
                 @Html.DisplayFor(modelItem => item.quantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.buyTime)
+                @Html.DisplayFor(modelItem => item.price) 
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.cost)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> 
+                @Html.DisplayFor(modelItem => item.buyTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a>
                 <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
                 <a asp-controller="Sales" asp-action="Index" asp-route-productSeriesId="@item.id"> Sales </a>
             </td>
