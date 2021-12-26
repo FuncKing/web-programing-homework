@@ -117,10 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Buy" xml:space="preserve">
-    <value>Buy</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
   </data>
-  <data name="name" xml:space="preserve">
-    <value>name</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="Product Name" xml:space="preserve">
+    <value>Ürün Adı</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Miktar</value>
+  </data>
+  <data name="Sale History" xml:space="preserve">
+    <value>Satış Geçmişi</value>
+  </data>
+  <data name="Seller Name" xml:space="preserve">
+    <value>Satıcı Adı</value>
+  </data>
+  <data name="Series Name" xml:space="preserve">
+    <value>Seri Adı</value>
+  </data>
+  <data name="Total Cost" xml:space="preserve">
+    <value>Toplam Maliyet</value>
+  </data>
+  <data name="Total Price" xml:space="preserve">
+    <value>Toplam Fiyat</value>
+  </data>
+  <data name="Total Profit" xml:space="preserve">
+    <value>Toplam Kazanç</value>
   </data>
 </root>

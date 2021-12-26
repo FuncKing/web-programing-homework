@@ -34,6 +34,7 @@ namespace WebApplication2.Controllers
             ViewBag.Message = _localizer["Kabul"];
             return View(
                 await _context.productSeries
+                .Where(x=>x.quantity>0)
                 .Include(x => x.product)
                 .Include(x => x.seller)
                 .ToListAsync()
@@ -73,8 +74,14 @@ namespace WebApplication2.Controllers
             {
 
                 sale.productSeries = await _context.productSeries.FindAsync(ProductId);
+                if (sale.productSeries.quantity < sale.quantity)
+                {
+                    throw new InvalidOperationException("You cant buy many than stock quantity");
+                }
                 sale.user = await _userManager.GetUserAsync(HttpContext.User);
                 sale.dateTime = DateTime.Now;
+
+                sale.productSeries.quantity = sale.productSeries.quantity - sale.quantity;
                 
                 _context.Add(sale);
                 await _context.SaveChangesAsync();

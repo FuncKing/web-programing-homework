@@ -41,9 +41,7 @@ namespace WebApplication2
             var supportedCultures = new[]
             {
             new CultureInfo("tr"),
-            new CultureInfo("en-US"),
-            new CultureInfo("fr"),
-
+            new CultureInfo("en-US")
             };
                 options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-Us");
                 options.SupportedCultures = supportedCultures;

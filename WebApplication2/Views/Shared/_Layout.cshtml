@@ -41,10 +41,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Sales" asp-action="Index">Sales</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Sales" asp-action="Index">@Localizer["Sales"]</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -52,31 +52,32 @@
                             {
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Product</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["Products"]</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Sellers" asp-action="Index">Sellers</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Sellers" asp-action="Index">@Localizer["Sellers"]</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="ProductSeries" asp-action="Index">ProductSeries</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="ProductSeries" asp-action="Index">@Localizer["Product Series"]</a>
                                 </li>
                             }
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Sales" asp-action="UserHistory">Shopping History</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Sales" asp-action="UserHistory">@Localizer["Shopping History"]</a>
                             </li>
                         }
                     </ul>
                     <partial name="_LoginPartial" />
-                    <div>
-                        <label>Language:</label>
-                        <select onchange="SetCulture(this.value)" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems">
-                        </select>
-                    </div>
+ 
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
+        <div class="w-25">
+            <label>@Localizer["Language"]:</label>
+            <select class="w-25" onchange="SetCulture(this.value)" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems">
+            </select>
+        </div>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

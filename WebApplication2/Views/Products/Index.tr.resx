@@ -117,25 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Home" xml:space="preserve">
-    <value>Ana Ekran</value>
+  <data name="Create" xml:space="preserve">
+    <value>Oluştur</value>
   </data>
-  <data name="Language" xml:space="preserve">
-    <value>Dil</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
   </data>
-  <data name="Product Series" xml:space="preserve">
-    <value>Ürün Serileri</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzenle</value>
   </data>
   <data name="Products" xml:space="preserve">
     <value>Ürünler</value>
   </data>
   <data name="Sales" xml:space="preserve">
     <value>Satışlar</value>
-  </data>
-  <data name="Sellers" xml:space="preserve">
-    <value>Satıcılar</value>
-  </data>
-  <data name="Shopping History" xml:space="preserve">
-    <value>Alışveriş Geçmişi</value>
   </data>
 </root>
