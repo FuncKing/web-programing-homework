@@ -36,37 +36,35 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.product.name)
-                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.product.barcode">- Details</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.seller.name)
-                <a asp-controller="Sellers" asp-action="Details" asp-route-id="@item.seller.id">- Details</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.price) 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.buyTime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a>
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-                <a asp-controller="Sales" asp-action="Index" asp-route-productSeriesId="@item.id"> Sales </a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.product.barcode">@Html.DisplayFor(modelItem => item.product.name)</a>
+                </td>
+                <td>
+                    <a asp-controller="Sellers" asp-action="Details" asp-route-id="@item.seller.id">@Html.DisplayFor(modelItem => item.seller.name)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price) 
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.buyTime)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a>
+                    <a asp-controller="Sales" asp-action="Index" asp-route-productSeriesId="@item.id"> Sales </a>
+                    <a asp-action="Delete" asp-route-id="@item.id" class="text-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
