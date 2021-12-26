@@ -4,6 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer localizer
+
 <h1>Market</h1>
 
 <div class="table">
@@ -42,7 +46,7 @@
                                 <div class="row">
                                     <div class="mx-auto d-inline mt-3">
 
-                                        <a role="button" class="btn btn-info mr-1" asp-action="Buy" asp-route-id="@item.id">Buy</a>
+                                        <a role="button" class="btn btn-info mr-1" asp-action="Buy" asp-route-id="@item.id">@localizer["Buy"]</a>
 
                                     </div>
                                 </div>
@@ -56,4 +60,3 @@
     </div>
 </div>
 
-    

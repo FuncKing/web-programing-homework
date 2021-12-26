@@ -4,7 +4,11 @@
     ViewData["Title"] = "View";
 }
 
-<h1>Shopping History</h1>
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer localizer
+
+<h1>@localizer["Shopping History"]</h1>
 
 <div class="table">
     <div class="table">
@@ -36,7 +40,7 @@
                                             <div class="font-weight-bold text-center mb-1">
                                                 @Html.DisplayFor(modelItem => item.dateTime.DateTime)
                                             </div>
-          
+
                                         </div>
                                     </div>
                                 </div>
@@ -47,5 +51,5 @@
             </div>
         </div>
     </div>
-    
+
 </div>

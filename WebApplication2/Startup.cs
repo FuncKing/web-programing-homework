@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using WebApplication2.Models;
 
@@ -49,7 +50,7 @@ namespace WebApplication2
             });
             //services.AddControllersWithViews();
         
-        services.AddControllersWithViews();
+            services.AddControllersWithViews();
             services.AddEntityFrameworkNpgsql().AddDbContext<ShopContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
             );
@@ -66,6 +67,8 @@ namespace WebApplication2
             services.AddRazorPages();
 
         }
+
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -31,7 +31,6 @@ namespace WebApplication2.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.Message = _localizer["Kabul"];
             return View(
                 await _context.productSeries
                 .Where(x=>x.quantity>0)
@@ -56,7 +55,7 @@ namespace WebApplication2.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Message = _localizer["Kabul"];
+
             ViewBag.productSeries = productSeries;
             return View();
         }
