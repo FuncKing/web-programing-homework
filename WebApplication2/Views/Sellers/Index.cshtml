@@ -4,38 +4,43 @@
     ViewData["Title"] = "Sellers";
 }
 
-<h1>Sellers</h1>
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer localizer
+
+<h1>@localizer["Sellers"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a role="button" class="btn btn-success " asp-action="Create">@localizer["Create"]</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.name)
+                @localizer["name"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.address)
+                @localizer["address"]
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.address)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.address)
+                </td>
+                <td>
+                    <a role="button" class="btn btn-info mx-1" asp-action="Edit" asp-route-id="@item.id">@localizer["Edit"]</a>
+                    <a role="button" class="btn btn-info mx-1" asp-action="Details" asp-route-id="@item.id">@localizer["Details"]</a>
+                    <a role="button" class="btn btn-danger mx-1" asp-action="Delete" asp-route-id="@item.id">@localizer["Delete"]</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

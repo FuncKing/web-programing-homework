@@ -37,12 +37,12 @@
                             <div class="row">
                                 <div class="mx-auto d-inline mt-3">
                                     <a role="button" class="btn btn-info mr-1" asp-action="Edit" asp-route-id="@item.barcode"> @localizer["Edit"]</a>
-                                        <a role="button" class="btn btn-warning " asp-controller="Sales" asp-action="Index" asp-route-barcode="@item.barcode"> @localizer["Sales"] </a>
+                                    <a role="button" class="btn btn-warning " asp-controller="Sales" asp-action="Index" asp-route-barcode="@item.barcode"> @localizer["Sales"] </a>
                             </div>
                             </div>
                             <div class="d-flex mt-2 justify-content-center align-content-end">
                                 <div>
-                                    <a role="button" class="btn btn-danger ml-1" asp-action="Delete" asp-route-id="@item.barcode">@localizer["Delete"]</a>
+                                    <a role="button" class="btn btn-danger ml-1" role="button" class="btn btn-danger ml-1" asp-action="Delete" asp-route-id="@item.barcode">@localizer["Delete"]</a>
                             </div>
                             </div>
                         </div>

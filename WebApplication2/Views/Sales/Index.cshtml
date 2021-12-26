@@ -67,8 +67,8 @@
                     @Html.DisplayFor(modelItem => item.dateTime.DateTime)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.id">@localizer["Edit"]</a> |
-                    <a asp-action="Delete" asp-route-id="@item.id">@localizer["Delete"]</a>
+                    <a role="button" class="btn btn-info mr-1" asp-action="Edit" asp-route-id="@item.id">@localizer["Edit"]</a> 
+                    <a role="button" class="btn btn-danger ml-1" asp-action="Delete" asp-route-id="@item.id">@localizer["Delete"]</a>
                 </td>
             </tr>
         }
