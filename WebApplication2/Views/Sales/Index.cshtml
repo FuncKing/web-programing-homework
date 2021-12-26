@@ -37,13 +37,13 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr onclick="document.location.replace('Sales/Details/@item.id')" style="cursor: pointer">
             <td>
                 <a role="button" class=" " asp-controller="ProductSeries" asp-action="Details" asp-route-id="@item.productSeries.id">@Html.DisplayFor(modelItem => item.productSeries.name)</a>
             </td>
             <td>
                 <a role="button" class=" " asp-controller="Products" asp-action="Details" asp-route-id="@item.productSeries.product.barcode">@Html.DisplayFor(modelItem => item.productSeries.product.name)</a>
-</td>
+            </td>
             <td class="font-weight-bold text-center mb-1 text-info">
                 @((item.productSeries.price*item.quantity).ToString())
             </td>
@@ -64,7 +64,6 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
             </td>
         </tr>
