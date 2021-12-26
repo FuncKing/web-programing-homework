@@ -6,51 +6,49 @@
 
 <h1>Edit products serie</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="name" class="control-label"></label>
-                <input asp-for="name" class="form-control" />
-                <span asp-validation-for="name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Product Name</label>
-                <select class="form-control" asp-items="ViewBag.ProductId" name="ProductId"></select>
-            </div>
-            <div class="form-group">
-                <label  class="control-label">Seller Name</label>
-                <select class="form-control" asp-items="ViewBag.SellerId" name="SellerId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="quantity" class="control-label"></label>
-                <input asp-for="quantity" type="number" min="1" class="form-control" />
-                <span asp-validation-for="quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="price" class="control-label"></label>
-                <input asp-for="price" type="number" min="0" class="form-control" />
-                <span asp-validation-for="price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="cost" class="control-label"></label>
-                <input asp-for="cost" type="number" class="form-control" />
-                <span asp-validation-for="cost" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="buyTime" class="control-label">Buy Time</label>
-                <input asp-for="buyTime" class="form-control" />
-                <span asp-validation-for="buyTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-md-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="name" class="control-label"></label>
+                    <input asp-for="name" class="form-control" />
+                    <span asp-validation-for="name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Product Name</label>
+                    <select class="form-control" asp-items="ViewBag.ProductId" name="ProductId"></select>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label">Seller Name</label>
+                    <select class="form-control" asp-items="ViewBag.SellerId" name="SellerId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="quantity" class="control-label"></label>
+                    <input asp-for="quantity" type="number" min="1" class="form-control" />
+                    <span asp-validation-for="quantity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="price" class="control-label"></label>
+                    <input asp-for="price" type="number" min="0" class="form-control" />
+                    <span asp-validation-for="price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cost" class="control-label"></label>
+                    <input asp-for="cost" type="number" class="form-control" />
+                    <span asp-validation-for="cost" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="buyTime" class="control-label">Buy Time</label>
+                    <input asp-for="buyTime" class="form-control" />
+                    <span asp-validation-for="buyTime" class="text-danger"></span>
+                </div>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+    <div class="row">
+        <div class="form-group mt-4">
+            <a asp-action="Index" style="color: grey; margin-right:10px;">Back to List</a>
+            <input type="submit" value="Save" class="btn btn-outline-success" />
+        </div>                
+    </div>
+</form>

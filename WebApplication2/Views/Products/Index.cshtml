@@ -12,45 +12,44 @@
 <table class="table">
     <div class="container">
         <div class="row">
-        
-       @foreach (var item in Model) {
-
-        <div class="col-md-6 col-12">
-            <div class=" m-1 row overflow-hidden bg-light p-2">
-                <div class="row">
-                    <div class="col-6">
-                        <image class="img-fluid" src="@item.imagePath" />
-                    </div>
-                    <div class="col-6 justify-content-between">
-                        <div class="row ">
-                            <div class="mx-auto">
-                                <div class="font-weight-bold text-center">
-                                    @Html.DisplayFor(modelItem => item.name)
-                                </div>
-                                <div class="font-weight-bold text-center">
-                                    @Html.DisplayFor(modelItem => item.weight) kg
+            @foreach (var item in Model) {
+                <div class="col-md-6 col-12" onclick="document.location.replace('Products/Details/@item.barcode')">
+                    <div class="m-1 row overflow-hidden bg-light p-2">
+                        <div class="col-6">
+                            <image class="img-fluid" src="@item.imagePath" />
+                        </div>
+                        <div class="col-6 justify-content-between">
+                            <div class="row ">
+                                <div class="mx-auto">
+                                    <div class="font-weight-bold text-center">
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </div>
+                                    <div class="font-weight-bold text-center">
+                                        @Html.DisplayFor(modelItem => item.weight) kg
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="mx-auto d-inline mt-3">
-
-                                <a role="button" class="btn btn-info mr-1" asp-action="Edit" asp-route-id="@item.barcode">Edit</a>
-                                <a role="button" class="btn btn-info " asp-action="Details" asp-route-id="@item.barcode">Details</a>
-                                <a role="button" class="btn btn-warning " asp-controller="Sales" asp-action="Index" asp-route-barcode="@item.barcode"> Sales </a>
+                            <div class="row">
+                                <div class="mx-auto d-inline mt-3">
+                                    <a role="button" class="btn btn-info mr-1" asp-action="Edit" asp-route-id="@item.barcode">Edit</a>
+                                    <a role="button" class="btn btn-warning " asp-controller="Sales" asp-action="Index" asp-route-barcode="@item.barcode"> Sales </a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex mt-2 justify-content-center align-content-end">
-                            <div >
-                                <a role="button" class="btn btn-danger ml-1" asp-action="Delete" asp-route-id="@item.barcode">Delete</a>
+                            <div class="d-flex mt-2 justify-content-center align-content-end">
+                                <div >
+                                    <a role="button" class="btn btn-danger ml-1" asp-action="Delete" asp-route-id="@item.barcode">Delete</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        }
+            }
         </div>
     </div>
 </table>
+
+<script>
+    const goTo = (item) => {
+        console.log("calisti",item);
+    }
+</script>

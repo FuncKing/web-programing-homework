@@ -40,8 +40,10 @@
             @Html.DisplayFor(model => model.cost)
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="row">
+        <div class="form-group mt-4">
+            <a asp-action="Index" style="color: grey; margin-right:10px;">Back to List</a>
+            <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> />
+        </div>                
+    </div>
 </div>

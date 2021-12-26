@@ -28,9 +28,6 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Sales" asp-action="Index">Sales</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
@@ -52,9 +49,6 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Sales" asp-action="UserHistory">Shopping History</a>
                             </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Form" asp-action="Index">Form</a>
-                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -69,7 +63,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - FuncKing Web Programing Homework - <a href="https://github.com/FuncKing/web-programing-homework/" target="blank" >View Code</a>
+            &copy; 2021 - FuncKing Web Programing Homework - <a href="https://github.com/FuncKing/web-programing-homework/" target="blank" >View Code</a> - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
