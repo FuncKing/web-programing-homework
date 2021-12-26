@@ -4,6 +4,22 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,6 +67,11 @@
                         }
                     </ul>
                     <partial name="_LoginPartial" />
+                    <div>
+                        <label>Language:</label>
+                        <select onchange="SetCulture(this.value)" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems">
+                        </select>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -63,7 +84,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - FuncKing Web Programing Homework - <a href="https://github.com/FuncKing/web-programing-homework/" target="blank" >View Code</a> - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - FuncKing Web Programing Homework - <a href="https://github.com/FuncKing/web-programing-homework/" target="blank">View Code</a> - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -72,3 +93,11 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+<script>
+    function SetCulture(selectedValue) {
+        alert(selectedValue);
+        var url = window.location.href.split('?')[0];
+        var culture = "?culture=" + selectedValue + "&ui-culture=" + selectedValue;
+        window.location.href = url + culture;
+    }
+</script>

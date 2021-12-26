@@ -22,9 +22,14 @@ namespace WebApplication2.Controllers
 
         // GET: api/ProductSeriesAPI
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductSeries>>> GetproductSeries()
+        public async Task<ActionResult<IEnumerable<ProductSeries>>> Index()
         {
-            return await _context.productSeries.ToListAsync();
+            return
+                await _context.productSeries
+                .Include(x => x.product)
+                .Include(x => x.seller)
+                .ToListAsync();
+              
         }
 
         // GET: api/ProductSeriesAPI/5

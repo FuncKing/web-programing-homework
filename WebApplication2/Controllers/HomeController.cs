@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,17 @@ namespace WebApplication2.Controllers
 
         private readonly ShopContext _context;
         private readonly UserManager<User> _userManager;
+        private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(ShopContext context,UserManager<User> userManager)
+        public HomeController(ShopContext context,UserManager<User> userManager, IStringLocalizer<HomeController> localizer)
         {
             _userManager = userManager;
             _context = context;
+            _localizer = localizer;
         }
         public async Task<IActionResult> Index()
         {
+            ViewBag.Message = _localizer["Kabul"];
             return View(
                 await _context.productSeries
                 .Include(x => x.product)
@@ -51,7 +55,7 @@ namespace WebApplication2.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.Message = _localizer["Kabul"];
             ViewBag.productSeries = productSeries;
             return View();
         }
