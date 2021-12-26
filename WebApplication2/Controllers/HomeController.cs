@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -20,16 +21,19 @@ namespace WebApplication2.Controllers
 
         private readonly ShopContext _context;
         private readonly UserManager<User> _userManager;
+        private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(ShopContext context,UserManager<User> userManager)
+        public HomeController(ShopContext context,UserManager<User> userManager, IStringLocalizer<HomeController> localizer)
         {
             _userManager = userManager;
             _context = context;
+            _localizer = localizer;
         }
         public async Task<IActionResult> Index()
         {
             return View(
                 await _context.productSeries
+                .Where(x=>x.quantity>0)
                 .Include(x => x.product)
                 .Include(x => x.seller)
                 .ToListAsync()
@@ -69,8 +73,14 @@ namespace WebApplication2.Controllers
             {
 
                 sale.productSeries = await _context.productSeries.FindAsync(ProductId);
+                if (sale.productSeries.quantity < sale.quantity)
+                {
+                    throw new InvalidOperationException("You cant buy many than stock quantity");
+                }
                 sale.user = await _userManager.GetUserAsync(HttpContext.User);
                 sale.dateTime = DateTime.Now;
+
+                sale.productSeries.quantity = sale.productSeries.quantity - sale.quantity;
                 
                 _context.Add(sale);
                 await _context.SaveChangesAsync();

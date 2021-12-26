@@ -4,13 +4,18 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using WebApplication2.Models;
 
@@ -28,6 +33,23 @@ namespace WebApplication2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc()
+                .AddJsonOptions(option => option.JsonSerializerOptions.MaxDepth = 3)
+                .AddViewLocalization(LanguageViewLocationExpanderFormat
+                .Suffix).AddDataAnnotationsLocalization();
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+            var supportedCultures = new[]
+            {
+            new CultureInfo("tr"),
+            new CultureInfo("en-US")
+            };
+                options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-Us");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+            //services.AddControllersWithViews();
+        
             services.AddControllersWithViews();
             services.AddEntityFrameworkNpgsql().AddDbContext<ShopContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
@@ -45,6 +67,8 @@ namespace WebApplication2
             services.AddRazorPages();
 
         }
+
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -66,6 +90,9 @@ namespace WebApplication2
 
 
             app.UseRouting();
+
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
 
             app.UseAuthentication();
             app.UseAuthorization();
