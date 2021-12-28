@@ -80,9 +80,13 @@ namespace WebApplication2.Controllers
                 productSeries.product = await _context.products.FirstOrDefaultAsync(m => m.barcode == ProductId);
                 productSeries.seller = await _context.sellers.FirstOrDefaultAsync(m => m.id == SellerId);
 
-                _context.Add(productSeries);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (productSeries.product != null && productSeries.seller != null)
+                {
+                    _context.Add(productSeries);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
             }
 
             return View(productSeries);
